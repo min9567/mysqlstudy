@@ -23,11 +23,11 @@ app.get('/users', (req, res) => {
 app.post('/users', (req, res) => {
     const { username, email } = req.body;
     db.query(
-        'INSERT INTO users (username, email) VALUES (?, ?)',
+        'INSERT INTO users (uuid, username, email) VALUES (UUID(), ?, ?)',
         [username, email],
         (err, result) => {
             if (err) return res.status(500).json({ error: err });
-            res.json({ success: true, id: result.insertId });
+            res.json({ success: true });
         }
     );
 });
